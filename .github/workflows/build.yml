@@ -22,17 +22,14 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.x'
-          channel: 'stable'
-
-      - name: Create Android Project
-        run: flutter create . --platforms=android --project-name my_flutter_app
+          flutter-version: 'stable'
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release
+        # --stacktrace ကို ထည့်ပေးထားလို့ Error ဖြစ်ရင် အကြောင်းရင်းကို log မှာ ပြပေးလိမ့်မယ်
+        run: flutter build apk --release --no-tree-shake-icons --stacktrace
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
