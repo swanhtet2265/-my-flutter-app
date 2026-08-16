@@ -29,7 +29,8 @@ jobs:
           if [ -f "pubspec.yaml" ]; then
             flutter pub get
           else
-            cd * && flutter pub get
+            cd *my-flutter-app* || cd *
+            flutter pub get
           fi
 
       - name: Build APK
@@ -37,7 +38,8 @@ jobs:
           if [ -f "pubspec.yaml" ]; then
             flutter build apk --release --no-tree-shake-icons
           else
-            cd * && flutter build apk --release --no-tree-shake-icons
+            cd *my-flutter-app* || cd *
+            flutter build apk --release --no-tree-shake-icons
           fi
 
       - name: Upload APK Artifact
