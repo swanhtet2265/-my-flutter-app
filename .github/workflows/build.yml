@@ -22,13 +22,12 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: 'stable'
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build APK
-        # --stacktrace ကို ထည့်ပေးထားလို့ Error ဖြစ်ရင် အကြောင်းရင်းကို log မှာ ပြပေးလိမ့်မယ်
         run: flutter build apk --release --no-tree-shake-icons --stacktrace
 
       - name: Upload APK Artifact
