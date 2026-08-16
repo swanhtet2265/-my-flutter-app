@@ -24,11 +24,10 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Locate and Build APK
+      - name: Build APK
         run: |
-          PROJ_DIR=$(find . -name "pubspec.yaml" -printf '%h\n' | head -n 1)
-          echo "Project directory found at: $PROJ_DIR"
-          cd "$PROJ_DIR"
+          TARGET_DIR=$(find . -maxdepth 3 -name "pubspec.yaml" -exec dirname {} \; | head -n 1)
+          cd "$TARGET_DIR"
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
 
