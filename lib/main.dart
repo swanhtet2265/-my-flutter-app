@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SAN Shop',
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xFF0F0F1E),
+      ),
       home: const MainPage(),
     );
   }
@@ -47,6 +49,7 @@ class _MainPageState extends State<MainPage> {
         },
         selectedItemColor: Colors.deepPurpleAccent,
         unselectedItemColor: Colors.grey,
+        backgroundColor: const Color(0xFF161629),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -73,144 +76,139 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background Image
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000',
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              // SAN shop Banner
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.lightGreenAccent.shade400,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.black, width: 2),
                 ),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Container(color: Colors.black.withOpacity(0.5)),
-          SafeArea(
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                // SAN shop Banner
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.greenAccent.shade400,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.black, width: 2),
-                  ),
-                  child: const Text(
+                child: const Center(
+                  child: Text(
                     'SAN shop',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
+                      color: Colors.black,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                // Logo Section
-                Expanded(
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.sports_esports,
-                          size: 90,
-                          color: Colors.amber,
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'MOBILE LEGENDS',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.black,
-                            color: Colors.amber.shade300,
-                            shadows: const [
-                              Shadow(blurRadius: 10, color: Colors.black, offset: Offset(2, 2))
-                            ],
-                          ),
-                        ),
-                        const Text(
-                          '5v5 Fair AOS for Mobile',
-                          style: TextStyle(color: Colors.white70, fontSize: 14),
-                        ),
-                      ],
+              ),
+              const SizedBox(height: 30),
+              // Game Title Section
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.sports_esports,
+                      size: 90,
+                      color: Colors.amber,
                     ),
-                  ),
-                ),
-                // Buttons Section
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildRedButton(context, 'Hero story', const HeroStoryPage()),
-                          ),
-                          const SizedBox(width: 15),
-                          Expanded(
-                            child: _buildRedButton(context, 'Diamonds', const DiamondsPage()),
-                          ),
-                        ],
+                    const SizedBox(height: 15),
+                    const Text(
+                      'MOBILE LEGENDS',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.amber,
+                        letterSpacing: 1.2,
                       ),
-                      const SizedBox(height: 15),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _buildRedButton(context, 'itemအကြောင်း', const ItemInfoPage()),
-                          ),
-                          const SizedBox(width: 15),
-                          Expanded(
-                            child: _buildRedButton(context, 'Uc', const UcPage()),
-                          ),
-                        ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      '5v5 Fair AOS for Mobile',
+                      style: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Buttons Section
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildRedButton(
+                          context,
+                          'Hero story',
+                          const HeroStoryPage(),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Expanded(
+                        child: _buildRedButton(
+                          context,
+                          'Diamonds',
+                          const DiamondsPage(),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 10),
-              ],
-            ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildRedButton(
+                          context,
+                          'itemအကြောင်း',
+                          const ItemInfoPage(),
+                        ),
+                      ),
+                      const SizedBox(width: 15),
+                      Expanded(
+                        child: _buildRedButton(
+                          context,
+                          'Uc',
+                          const UcPage(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
   Widget _buildRedButton(BuildContext context, String text, Widget nextPage) {
-    return GestureDetector(
-      onTap: () {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFFFF3B30),
+        padding: const EdgeInsets.symmetric(vertical: 14),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => nextPage),
         );
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: const Color(0xFFFF3B30),
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              blurRadius: 4,
-              offset: const Offset(2, 4),
-            )
-          ],
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -234,13 +232,14 @@ class HeroStoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Hero Stories')),
       body: ListView.builder(
+        padding: const EdgeInsets.all(10),
         itemCount: heroes.length,
         itemBuilder: (context, index) {
           final hero = heroes[index];
           return Card(
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(vertical: 6),
             child: ListTile(
-              leading: const Icon(Icons.person, color: Colors.amber),
+              leading: const Icon(Icons.person, color: Colors.amber, size: 36),
               title: Text(hero['name']!, style: const TextStyle(fontWeight: FontWeight.bold)),
               subtitle: Text('${hero['role']}\n${hero['desc']}'),
             ),
@@ -268,7 +267,7 @@ class DiamondsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('MLBB Diamonds Shop')),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             Expanded(
@@ -277,9 +276,9 @@ class DiamondsPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = prices[index];
                   return Card(
-                    color: Colors.blueGrey.shade900,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
                     child: ListTile(
-                      leading: const Icon(Icons.diamond, color: Colors.cyanAccent),
+                      leading: const Icon(Icons.diamond, color: Colors.cyanAccent, size: 30),
                       title: Text(item['amount']!, style: const TextStyle(fontWeight: FontWeight.bold)),
                       trailing: Text(item['price']!, style: const TextStyle(color: Colors.greenAccent, fontSize: 16)),
                     ),
@@ -287,6 +286,7 @@ class DiamondsPage extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 10),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
@@ -319,13 +319,14 @@ class ItemInfoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Item အကြောင်း')),
       body: ListView.builder(
+        padding: const EdgeInsets.all(10),
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
           return Card(
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(vertical: 6),
             child: ListTile(
-              leading: const Icon(Icons.shield, color: Colors.orangeAccent),
+              leading: const Icon(Icons.shield, color: Colors.orangeAccent, size: 30),
               title: Text(item['name']!, style: const TextStyle(fontWeight: FontWeight.bold)),
               subtitle: Text('Type: ${item['type']}\n${item['desc']}'),
             ),
@@ -352,7 +353,7 @@ class UcPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('PUBG UC Shop')),
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             Expanded(
@@ -361,9 +362,9 @@ class UcPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = ucPrices[index];
                   return Card(
-                    color: Colors.grey.shade900,
+                    margin: const EdgeInsets.symmetric(vertical: 6),
                     child: ListTile(
-                      leading: const Icon(Icons.monetization_on, color: Colors.amber),
+                      leading: const Icon(Icons.monetization_on, color: Colors.amber, size: 30),
                       title: Text(item['amount']!, style: const TextStyle(fontWeight: FontWeight.bold)),
                       trailing: Text(item['price']!, style: const TextStyle(color: Colors.amberAccent, fontSize: 16)),
                     ),
@@ -371,6 +372,7 @@ class UcPage extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 10),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
@@ -421,47 +423,12 @@ class ProfilePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(radius: 50, child: Icon(Icons.person, size: 50)),
-            SizedBox(height: 10),
+            SizedBox(height: 12),
             Text('SAN Shop User', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 4),
             Text('Welcome to SAN Shop App', style: TextStyle(color: Colors.grey)),
           ],
         ),
-      ),
-    );
-  }
-}
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bottom Navigation App'),
-      ),
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
