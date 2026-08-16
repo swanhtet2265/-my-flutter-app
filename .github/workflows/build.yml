@@ -24,23 +24,13 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Get Dependencies
+      - name: Locate and Build APK
         run: |
-          if [ -f "pubspec.yaml" ]; then
-            flutter pub get
-          else
-            cd *my-flutter-app* || cd *
-            flutter pub get
-          fi
-
-      - name: Build APK
-        run: |
-          if [ -f "pubspec.yaml" ]; then
-            flutter build apk --release --no-tree-shake-icons
-          else
-            cd *my-flutter-app* || cd *
-            flutter build apk --release --no-tree-shake-icons
-          fi
+          PROJ_DIR=$(find . -name "pubspec.yaml" -printf '%h\n' | head -n 1)
+          echo "Project directory found at: $PROJ_DIR"
+          cd "$PROJ_DIR"
+          flutter pub get
+          flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
