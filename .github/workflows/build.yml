@@ -25,9 +25,8 @@ jobs:
           channel: 'stable'
 
       - name: Build APK
+        working-directory: ./-my-flutter-app
         run: |
-          TARGET_DIR=$(find . -maxdepth 3 -name "pubspec.yaml" -exec dirname {} \; | head -n 1)
-          cd "$TARGET_DIR"
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
 
@@ -35,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: '**/build/app/outputs/flutter-apk/app-release.apk'
+          path: '-my-flutter-app/build/app/outputs/flutter-apk/app-release.apk'
