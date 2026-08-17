@@ -25,7 +25,7 @@ jobs:
           channel: 'stable'
 
       - name: Build APK
-        working-directory: ./-my-flutter-app
+        working-directory: -my-flutter-app
         run: |
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
