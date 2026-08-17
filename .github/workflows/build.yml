@@ -24,8 +24,11 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: Build APK
+      - name: Auto Detect Directory and Build APK
         run: |
+          FLUTTER_ROOT=$(dirname $(find . -name "pubspec.yaml" | head -n 1))
+          echo "Found project at: $FLUTTER_ROOT"
+          cd "$FLUTTER_ROOT"
           flutter pub get
           flutter build apk --release --no-tree-shake-icons
 
@@ -33,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: 'build/app/outputs/flutter-apk/app-release.apk'
+          path: '**/build/app/outputs/flutter-apk/app-release.apk'
