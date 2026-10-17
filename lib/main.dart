@@ -80,13 +80,12 @@ class TopUpPage extends StatelessWidget {
   const TopUpPage({super.key});
 
   Future<void> _launchTelegram(String gameName) async {
-    final message = Uri.encodeComponent('Hello, I want to top up $gameName.');
-    final Uri url = Uri.parse('https://t.me/your_telegram_username?text=$message');
-
+    final Uri url = Uri.parse('https://t.me/runn2022');
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
